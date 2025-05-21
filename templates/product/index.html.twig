@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+
+        <h1>Liste des produits</h1>
+    <br>
+<hr>
+        <ul>
+            {% for product in products %}
+                <li>
+
+                    {% for image in product.images %}
+                    <img src="{{ vich_uploader_asset(image, 'imageFile') | imagine_filter('product_image') }}">
+                    {% endfor %}
+
+
+                    <strong>Le titre : {{ product.title }}</strong><br>
+                    <p>La description : {{ product.description }}</p><br>
+                    <p>Category : {{ product.category.name }}</p>
+                    <p>Le prix:{{ product.price }} € </p><br>
+                    <a href="{{ path('app_product_show', {id: product.id}) }}">Voir</a>
+                </li>
+                <hr>
+            {% else %}
+                <li>Aucun produit disponible.</li>
+            {% endfor %}
+        </ul>
+
+
+{% endblock %}
